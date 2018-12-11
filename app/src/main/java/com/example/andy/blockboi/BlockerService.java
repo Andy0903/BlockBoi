@@ -47,6 +47,16 @@ public class BlockerService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
+        //Set the close button.
+        ImageView closeButton = (ImageView) blockerView.findViewById(R.id.close_btn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //close the service and remove the chat head from the window
+                stopSelf();
+            }
+        });
+
         //Specify the chat head position
         //Initially view will be added to top-left corner
         params.gravity = Gravity.TOP | Gravity.LEFT;
@@ -82,10 +92,10 @@ public class BlockerService extends Service {
                         stayedWithinClickDistance = true;
                         return true;
                     case MotionEvent.ACTION_UP:
-                        long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                        if(clickDuration < maxClickDuration && stayedWithinClickDistance) {
-                           stopSelf();
-                        }
+                        //long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                        //if(clickDuration < maxClickDuration && stayedWithinClickDistance) {
+                        //   stopSelf();
+                        //}
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //Calculate the X and Y coordinates of the view.
